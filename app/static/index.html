@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projektreferenzen</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Kopfzeile mit Aktionen, darunter Liste links und Steckbrief rechts; Formular als Seitenpanel. */
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --ink: #161b26; --muted: #5d6576; --line: #dfe2e8;
+  --accent: #b77900; --accent-ink: #ffffff; --accent-soft: #fbf1dc; --danger: #b42318; --danger-soft: #fde8e6;
+  --focus: #2f5bd3;
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r: 8px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11141b; --surface: #191d26; --ink: #e8eaef; --muted: #9aa2b3; --line: #2a303c;
+  --accent: #f0b43c; --accent-ink: #1a1405; --accent-soft: #2e2512; --danger: #ff8a7a; --danger-soft: #3a1c19;
+  --focus: #8aa8ff; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11141b; --surface: #191d26; --ink: #e8eaef; --muted: #9aa2b3; --line: #2a303c;
+  --accent: #f0b43c; --accent-ink: #1a1405; --accent-soft: #2e2512; --danger: #ff8a7a; --danger-soft: #3a1c19;
+  --focus: #8aa8ff; color-scheme: dark }
+
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+body { margin: 0 }
+img { max-width: 100% }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 48px }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 18px }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0 }
+button, input, select, textarea { font: inherit; color: inherit }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px }
+
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 20px }
+.brand { display: grid; gap: 2px }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+h1 { font-size: 28px; font-weight: 700; letter-spacing: -.01em }
+.stats { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums }
+.actions { display: flex; flex-wrap: wrap; gap: 8px }
+
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; border-radius: var(--r); cursor: pointer; font-weight: 500; font-size: 14px; display: inline-flex; align-items: center; gap: 6px }
+.btn:hover { border-color: var(--muted) }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600 }
+.btn.primary:hover { filter: brightness(1.05) }
+.btn.danger { color: var(--danger); border-color: var(--danger) }
+.btn.danger.solid { background: var(--danger); color: var(--surface) }
+.btn.ghost { border-color: transparent; background: transparent }
+.btn:disabled { opacity: .5; cursor: not-allowed }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.search { flex: 1 1 260px; min-width: 0; position: relative }
+.search input { width: 100%; padding: 9px 12px 9px 34px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
+.search svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--muted); fill: none }
+.toolbar select { padding: 9px 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
+
+.main { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 18px; align-items: start }
+@media (max-width: 820px) { .main { grid-template-columns: 1fr } }
+
+.list { display: grid; gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden }
+.item { display: grid; gap: 3px; padding: 12px 14px; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; cursor: pointer; width: 100%; border-left: 3px solid transparent }
+.item:last-child { border-bottom: 0 }
+.item:hover { background: var(--bg) }
+.item[aria-current="true"] { border-left-color: var(--accent); background: var(--accent-soft) }
+.item .t { font-weight: 600; font-size: 15px; overflow-wrap: anywhere }
+.item .s { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; font-variant-numeric: tabular-nums }
+.empty-list { padding: 22px 16px; color: var(--muted); font-size: 14px }
+
+.detail { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px clamp(16px, 3vw, 32px); display: grid; gap: 20px; min-width: 0 }
+.detail .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-start }
+.detail h2 { font-size: 24px; font-weight: 700; overflow-wrap: anywhere }
+.detail .client { color: var(--muted); font-size: 15px; margin-top: 2px }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden }
+.fact { background: var(--surface); padding: 10px 14px; display: grid; gap: 2px }
+.fact .k { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.fact .v { font-weight: 600; font-variant-numeric: tabular-nums }
+.sec { display: grid; gap: 6px; max-width: 72ch }
+.sec h3 { font-size: 13px; font-family: var(--f-mono); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--accent) }
+.sec p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere }
+.sec.na p { color: var(--muted); font-style: italic }
+.meta { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px }
+.placeholder { color: var(--muted); padding: 28px 8px; display: grid; gap: 10px; justify-items: start }
+.placeholder strong { color: var(--ink); font-family: var(--f-display); font-size: 18px }
+
+.confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--danger-soft); padding: 10px 12px; border-radius: var(--r); font-size: 14px }
+
+.notice { padding: 10px 14px; border-radius: var(--r); background: var(--accent-soft); font-size: 14px }
+.notice.err { background: var(--danger-soft); color: var(--danger) }
+
+/* Formular-Panel */
+.scrim { position: fixed; inset: 0; background: rgba(10, 12, 18, .45); z-index: 20 }
+.panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(640px, 100%); background: var(--surface); z-index: 21; display: grid; grid-template-rows: auto 1fr auto; border-left: 1px solid var(--line); box-shadow: -12px 0 40px rgba(0,0,0,.18) }
+.panel .ph, .panel .pf { padding: calc(14px + env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) 14px 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 10px }
+.panel .pf { padding: 12px max(20px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) 20px; border-bottom: 0; border-top: 1px solid var(--line); justify-content: flex-end; flex-wrap: wrap }
+.panel h2 { font-size: 20px }
+.pb { overflow-y: auto; padding: 18px max(20px, env(safe-area-inset-right, 0px)) 24px 20px; display: grid; gap: 16px; align-content: start }
+.group { display: grid; gap: 14px; padding-bottom: 6px }
+.group-title { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 6px }
+.field { display: grid; gap: 5px; min-width: 0 }
+.field label, .field .lbl { font-weight: 600; font-size: 14px }
+.req { color: var(--accent); margin-left: 2px }
+.hint { font-size: 12px; color: var(--muted) }
+.field input[type=text], .field input[type=month], .field input[type=number], .field textarea, .field select {
+  width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg) }
+.field textarea { min-height: 96px; resize: vertical; line-height: 1.5 }
+.field.invalid input, .field.invalid textarea { border-color: var(--danger) }
+.field .err { color: var(--danger); font-size: 12px }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+@media (max-width: 480px) { .row2 { grid-template-columns: 1fr } }
+.check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); font-weight: 400 }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden }
+.seg button { border: 0; background: var(--bg); padding: 8px 16px; cursor: pointer; font-family: var(--f-mono); font-weight: 500 }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink) }
+.vol { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px }
+.counter { font-size: 12px; color: var(--muted); justify-self: end; font-variant-numeric: tabular-nums }
+
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: var(--r); font-size: 14px; z-index: 30; max-width: calc(100% - 32px) }
+@media (prefers-reduced-motion: no-preference) { .panel { animation: slide .18s ease-out } @keyframes slide { from { transform: translateX(24px); opacity: .6 } } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <span class="eyebrow">hornet-ARC</span>
+      <h1>Projektreferenzen</h1>
+      <span class="stats" id="stats">Referenzen werden geladen …</span>
+    </div>
+    <div class="actions">
+      <button class="btn" id="btnExportCsv" type="button">Export CSV</button>
+      <button class="btn" id="btnExportJson" type="button">Export JSON</button>
+      <label class="btn" id="btnImport" for="importFile">Import JSON</label>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+      <button class="btn primary" id="btnNew" type="button">+ Neue Referenz</button>
+    </div>
+  </header>
+
+  <div id="notice" hidden></div>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Suchen in Name, Auftraggeber, Beschreibung, Lösung …" aria-label="Referenzen durchsuchen">
+    </div>
+    <select id="sort" aria-label="Sortierung">
+      <option value="start-desc">Neueste zuerst</option>
+      <option value="start-asc">Älteste zuerst</option>
+      <option value="name">Name A–Z</option>
+      <option value="kunde">Auftraggeber A–Z</option>
+      <option value="vol-desc">Volumen absteigend</option>
+    </select>
+    <select id="unitFilter" aria-label="Einheit filtern">
+      <option value="">PT und EUR</option>
+      <option value="PT">Nur PT</option>
+      <option value="EUR">Nur EUR</option>
+    </select>
+  </div>
+
+  <div class="main">
+    <nav class="list" id="list" aria-label="Referenzliste"><div class="empty-list">Referenzen werden geladen …</div></nav>
+    <section class="detail" id="detail" aria-live="polite">
+      <div class="placeholder">
+        <strong>Noch keine Referenz ausgewählt</strong>
+        <span>Hier erscheint der Steckbrief einer Referenz mit Zeitraum, Volumen, Ausgangssituation, Herausforderungen und Lösung. Legen Sie mit „Neue Referenz“ den ersten Eintrag an.</span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+  <div class="ph">
+    <h2 id="panelTitle">Neue Referenz</h2>
+    <button class="btn ghost" type="button" id="btnClose" aria-label="Schließen">✕</button>
+  </div>
+  <form class="pb" id="form" novalidate>
+    <div class="group">
+      <div class="group-title">Pflichtangaben</div>
+      <div class="field" data-f="name">
+        <label for="f_name">Projektname<span class="req">*</span></label>
+        <input type="text" id="f_name" maxlength="200" autocomplete="off">
+      </div>
+      <div class="field" data-f="kunde">
+        <label for="f_kunde">Auftraggeber<span class="req">*</span></label>
+        <input type="text" id="f_kunde" maxlength="200" autocomplete="off">
+      </div>
+      <div class="field" data-f="zeitraum">
+        <span class="lbl">Zeitraum<span class="req">*</span></span>
+        <div class="row2">
+          <div class="field"><label class="hint" for="f_von">Von</label><input type="month" id="f_von" placeholder="JJJJ-MM"></div>
+          <div class="field"><label class="hint" for="f_bis">Bis</label><input type="month" id="f_bis" placeholder="JJJJ-MM"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="f_laufend"> Projekt läuft noch</label>
+      </div>
+      <div class="field" data-f="volumen">
+        <label for="f_vol">Volumen<span class="req">*</span></label>
+        <div class="vol">
+          <input type="number" id="f_vol" min="0" step="any" inputmode="decimal">
+          <div class="seg" role="group" aria-label="Einheit">
+            <button type="button" id="u_PT" data-u="PT" aria-pressed="true">PT</button>
+            <button type="button" id="u_EUR" data-u="EUR" aria-pressed="false">EUR</button>
+          </div>
+        </div>
+        <span class="hint">Personentage oder Auftragswert in Euro</span>
+      </div>
+      <div class="field" data-f="beschreibung">
+        <label for="f_beschreibung">Kurze Projektbeschreibung<span class="req">*</span></label>
+        <textarea id="f_beschreibung" maxlength="1500" rows="3"></textarea>
+        <span class="counter" id="c_beschreibung"></span>
+      </div>
+    </div>
+    <div class="group">
+      <div class="group-title">Details</div>
+      <div class="field"><label for="f_situation">Ausgangssituation des Kunden</label><textarea id="f_situation" maxlength="8000"></textarea></div>
+      <div class="field"><label for="f_herausforderungen">Herausforderungen</label><textarea id="f_herausforderungen" maxlength="8000"></textarea></div>
+      <div class="field"><label for="f_loesung">Lösung</label><textarea id="f_loesung" maxlength="8000"></textarea></div>
+      <div class="field"><label for="f_sonstiges">Sonstiges</label><textarea id="f_sonstiges" maxlength="8000"></textarea></div>
+    </div>
+  </form>
+  <div class="pf">
+    <span class="hint" id="formMsg" style="margin-right:auto"></span>
+    <button class="btn" type="button" id="btnCancel">Abbrechen</button>
+    <button class="btn primary" type="submit" form="form" id="btnSave">Speichern</button>
+  </div>
+</aside>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* Anbindung an den hornet-ARC-Microservice (REST-API unter /api). */
+(function () {
+  const API = "/api/referenzen";
+  const listeners = [];
+  async function req(method, url, body) {
+    const r = await fetch(url, { method, headers: body ? { "Content-Type": "application/json" } : {}, body: body ? JSON.stringify(body) : undefined });
+    if (!r.ok) { let m = r.statusText; try { m = JSON.stringify((await r.json()).detail); } catch {} throw { code: "unavailable", message: m }; }
+    return r.status === 204 ? null : r.json();
+  }
+  function clean(d) { const { id, createdAt, updatedAt, ...rest } = d; return rest; }
+  async function refresh() {
+    try {
+      const rows = await req("GET", API);
+      const snap = { docs: rows.map(r => ({ id: r.id, exists: true, data: () => r })) };
+      listeners.forEach(l => l.next(snap));
+    } catch (e) { listeners.forEach(l => l.err && l.err(e)); }
+  }
+  setInterval(refresh, 30000);
+  window.addEventListener("focus", refresh);
+  const db = {
+    collection() {
+      return {
+        onSnapshot(next, err) { listeners.push({ next, err }); refresh(); return () => {}; },
+        async add(data) { const r = await req("POST", API, clean(data)); await refresh(); return { id: r.id }; },
+        doc(id) {
+          return {
+            async set(data) { await req("PUT", API + "/" + encodeURIComponent(id), clean(data)); await refresh(); },
+            async delete() { await req("DELETE", API + "/" + encodeURIComponent(id)); await refresh(); }
+          };
+        }
+      };
+    }
+  };
+  const downloads = {
+    async save({ filename, data }) {
+      const blob = data instanceof Blob ? data : new Blob([data]);
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+  };
+  window.claude = { use: async (name) => name === "db" ? db : name === "downloads" ? downloads : null };
+})();
+</script>
+<script>
+(function () {
+  const COL = "referenzen";
+  const $ = (id) => document.getElementById(id);
+  let db = null, items = [], selectedId = null, editingId = null, unit = "PT", confirmDelete = false, canWrite = true, downloads = null;
+
+  // ---------- Hilfsfunktionen ----------
+  const nf = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 });
+  const eur = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  function fmtVol(r) {
+    if (r.volumenWert == null || r.volumenWert === "") return "–";
+    return r.volumenEinheit === "EUR" ? eur.format(r.volumenWert) : nf.format(r.volumenWert) + " PT";
+  }
+  function fmtMonth(m) { if (!m) return ""; const [y, mo] = m.split("-"); return mo + "/" + y; }
+  function fmtRange(r) { return fmtMonth(r.von) + " – " + (r.laufend ? "heute" : fmtMonth(r.bis)); }
+  function months(r) {
+    if (!r.von) return null;
+    const end = r.laufend ? new Date().toISOString().slice(0, 7) : r.bis;
+    if (!end) return null;
+    const [y1, m1] = r.von.split("-").map(Number), [y2, m2] = end.split("-").map(Number);
+    const n = (y2 - y1) * 12 + (m2 - m1) + 1;
+    return n > 0 ? n : null;
+  }
+  function fmtDuration(n) { if (!n) return ""; return n === 1 ? "1 Monat" : n + " Monate"; }
+  function esc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, 2600); }
+  function notice(msg, err) { const n = $("notice"); if (!msg) { n.hidden = true; return; } n.className = "notice" + (err ? " err" : ""); n.textContent = msg; n.hidden = false; }
+  function dbErr(e) {
+    const c = e && e.code;
+    if (c === "invalid_argument") { canWrite = false; applyWriteState(); return "Sie haben für diese Seite nur Leserechte."; }
+    if (c === "quota_exceeded") return "Der Speicher ist voll. Löschen Sie alte Einträge, um neue anzulegen.";
+    return "Speichern fehlgeschlagen. Bitte noch einmal versuchen.";
+  }
+
+  // ---------- Anzeige ----------
+  function filtered() {
+    const q = $("q").value.trim().toLowerCase();
+    const u = $("unitFilter").value;
+    let arr = items.filter(r => {
+      if (u && r.volumenEinheit !== u) return false;
+      if (!q) return true;
+      const hay = [r.name, r.kunde, r.beschreibung, r.situation, r.herausforderungen, r.loesung, r.sonstiges, fmtRange(r)].join(" ").toLowerCase();
+      return q.split(/\s+/).every(t => hay.includes(t));
+    });
+    const s = $("sort").value;
+    const cmp = {
+      "start-desc": (a, b) => (b.von || "").localeCompare(a.von || ""),
+      "start-asc": (a, b) => (a.von || "").localeCompare(b.von || ""),
+      "name": (a, b) => (a.name || "").localeCompare(b.name || "", "de"),
+      "kunde": (a, b) => (a.kunde || "").localeCompare(b.kunde || "", "de"),
+      "vol-desc": (a, b) => (a.volumenEinheit === b.volumenEinheit ? (b.volumenWert || 0) - (a.volumenWert || 0) : a.volumenEinheit === "EUR" ? -1 : 1)
+    }[s];
+    return arr.sort(cmp);
+  }
+
+  function renderStats() {
+    const pt = items.filter(r => r.volumenEinheit === "PT").reduce((s, r) => s + (Number(r.volumenWert) || 0), 0);
+    const e = items.filter(r => r.volumenEinheit === "EUR").reduce((s, r) => s + (Number(r.volumenWert) || 0), 0);
+    const kunden = new Set(items.map(r => (r.kunde || "").trim().toLowerCase()).filter(Boolean)).size;
+    $("stats").textContent = items.length === 0 ? "Noch keine Referenzen gespeichert"
+      : `${items.length} ${items.length === 1 ? "Referenz" : "Referenzen"} · ${kunden} ${kunden === 1 ? "Auftraggeber" : "Auftraggeber"} · ${nf.format(pt)} PT · ${eur.format(e)}`;
+  }
+
+  function renderList() {
+    const arr = filtered();
+    const list = $("list");
+    if (!items.length) { list.innerHTML = '<div class="empty-list">Noch keine Referenzen. Mit „+ Neue Referenz“ legen Sie die erste an.</div>'; return; }
+    if (!arr.length) { list.innerHTML = '<div class="empty-list">Keine Referenz passt zur Suche.</div>'; return; }
+    list.innerHTML = arr.map(r => `<button type="button" class="item" data-id="${esc(r.id)}" aria-current="${r.id === selectedId}">
+      <span class="t">${esc(r.name)}</span>
+      <span class="s"><span>${esc(r.kunde)}</span><span>${esc(fmtRange(r))}</span><span>${esc(fmtVol(r))}</span></span>
+    </button>`).join("");
+  }
+
+  function section(title, text) {
+    const has = text && String(text).trim();
+    return `<div class="sec${has ? "" : " na"}"><h3>${esc(title)}</h3><p>${has ? esc(text) : "Keine Angabe"}</p></div>`;
+  }
+
+  function renderDetail() {
+    const d = $("detail");
+    const r = items.find(x => x.id === selectedId);
+    if (!r) {
+      d.innerHTML = `<div class="placeholder"><strong>${items.length ? "Referenz auswählen" : "Noch keine Referenz ausgewählt"}</strong>
+        <span>${items.length ? "Wählen Sie links eine Referenz, um den Steckbrief zu sehen." : "Hier erscheint der Steckbrief einer Referenz mit Zeitraum, Volumen, Ausgangssituation, Herausforderungen und Lösung. Legen Sie mit „Neue Referenz“ den ersten Eintrag an."}</span>
+        ${items.length || !canWrite ? "" : '<button class="btn primary" type="button" data-act="new">+ Neue Referenz</button>'}</div>`;
+      return;
+    }
+    const dur = fmtDuration(months(r));
+    const upd = r.updatedAt ? new Date(r.updatedAt).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" }) : "";
+    d.innerHTML = `
+      <div class="head">
+        <div><h2>${esc(r.name)}</h2><div class="client">${esc(r.kunde)}</div></div>
+        <div class="actions">
+          <button class="btn" type="button" data-act="copy">Steckbrief kopieren</button>
+          ${canWrite ? '<button class="btn" type="button" data-act="edit">Bearbeiten</button><button class="btn danger" type="button" data-act="del">Löschen</button>' : ""}
+        </div>
+      </div>
+      ${confirmDelete ? `<div class="confirm"><span>„${esc(r.name)}“ endgültig löschen?</span><button class="btn danger solid" type="button" data-act="del-yes">Ja, löschen</button><button class="btn" type="button" data-act="del-no">Abbrechen</button></div>` : ""}
+      <div class="facts">
+        <div class="fact"><span class="k">Zeitraum</span><span class="v">${esc(fmtRange(r))}</span></div>
+        <div class="fact"><span class="k">Dauer</span><span class="v">${esc(dur || "–")}</span></div>
+        <div class="fact"><span class="k">Volumen</span><span class="v">${esc(fmtVol(r))}</span></div>
+      </div>
+      ${section("Projektbeschreibung", r.beschreibung)}
+      ${section("Ausgangssituation des Kunden", r.situation)}
+      ${section("Herausforderungen", r.herausforderungen)}
+      ${section("Lösung", r.loesung)}
+      ${section("Sonstiges", r.sonstiges)}
+      ${upd ? `<div class="meta">Zuletzt geändert am ${esc(upd)}</div>` : ""}`;
+  }
+
+  function render() { renderStats(); renderList(); renderDetail(); }
+
+  function applyWriteState() {
+    $("btnNew").hidden = !canWrite;
+    $("btnImport").hidden = !canWrite;
+    renderDetail();
+  }
+
+  // ---------- Formular ----------
+  const F = ["name", "kunde", "von", "bis", "beschreibung", "situation", "herausforderungen", "loesung", "sonstiges"];
+  function setUnit(u) { unit = u; ["PT", "EUR"].forEach(x => $("u_" + x).setAttribute("aria-pressed", String(x === u))); }
+  function openForm(r) {
+    editingId = r ? r.id : null;
+    $("panelTitle").textContent = r ? "Referenz bearbeiten" : "Neue Referenz";
+    F.forEach(k => $("f_" + k).value = r ? (r[k] || "") : "");
+    $("f_vol").value = r && r.volumenWert != null ? r.volumenWert : "";
+    $("f_laufend").checked = !!(r && r.laufend);
+    $("f_bis").disabled = $("f_laufend").checked;
+    setUnit(r ? (r.volumenEinheit || "PT") : "PT");
+    document.querySelectorAll(".field.invalid").forEach(f => { f.classList.remove("invalid"); f.querySelector(".err")?.remove(); });
+    $("formMsg").textContent = "";
+    updCounter();
+    $("scrim").hidden = false; $("panel").hidden = false;
+    setTimeout(() => $("f_name").focus(), 30);
+  }
+  function closeForm() { $("scrim").hidden = true; $("panel").hidden = true; editingId = null; }
+  function updCounter() { const n = $("f_beschreibung").value.length; $("c_beschreibung").textContent = n + " / 1500 Zeichen"; }
+
+  function markErr(key, msg) {
+    const f = document.querySelector(`.field[data-f="${key}"]`);
+    f.classList.add("invalid");
+    const e = document.createElement("span"); e.className = "err"; e.textContent = msg; f.appendChild(e);
+  }
+  function validate(v) {
+    document.querySelectorAll(".field.invalid").forEach(f => { f.classList.remove("invalid"); f.querySelector(".err")?.remove(); });
+    let ok = true;
+    if (!v.name) { markErr("name", "Bitte einen Projektnamen angeben."); ok = false; }
+    if (!v.kunde) { markErr("kunde", "Bitte den Auftraggeber angeben."); ok = false; }
+    if (!v.von) { markErr("zeitraum", "Bitte den Startmonat angeben."); ok = false; }
+    else if (!v.laufend && !v.bis) { markErr("zeitraum", "Bitte den Endmonat angeben oder „Projekt läuft noch“ wählen."); ok = false; }
+    else if (!v.laufend && v.bis < v.von) { markErr("zeitraum", "Das Ende liegt vor dem Start."); ok = false; }
+    if (v.volumenWert == null || isNaN(v.volumenWert) || v.volumenWert < 0) { markErr("volumen", "Bitte ein Volumen als Zahl angeben."); ok = false; }
+    if (!v.beschreibung) { markErr("beschreibung", "Bitte eine kurze Projektbeschreibung angeben."); ok = false; }
+    return ok;
+  }
+
+  async function save(ev) {
+    ev.preventDefault();
+    const v = {};
+    F.forEach(k => v[k] = $("f_" + k).value.trim());
+    v.laufend = $("f_laufend").checked;
+    if (v.laufend) v.bis = "";
+    const raw = $("f_vol").value;
+    v.volumenWert = raw === "" ? null : Number(raw);
+    v.volumenEinheit = unit;
+    if (!validate(v)) { $("formMsg").textContent = "Bitte die markierten Felder ausfüllen."; document.querySelector(".field.invalid input, .field.invalid textarea")?.focus(); return; }
+    if (!db) { $("formMsg").textContent = "Der Speicher ist gerade nicht erreichbar."; return; }
+    const now = new Date().toISOString();
+    $("btnSave").disabled = true; $("formMsg").textContent = "Wird gespeichert …";
+    try {
+      if (editingId) {
+        const old = items.find(x => x.id === editingId) || {};
+        await db.collection(COL).doc(editingId).set({ ...v, createdAt: old.createdAt || now, updatedAt: now });
+        selectedId = editingId;
+        toast("Änderungen gespeichert");
+      } else {
+        const ref = await db.collection(COL).add({ ...v, createdAt: now, updatedAt: now });
+        selectedId = ref.id;
+        toast("Referenz angelegt");
+      }
+      closeForm();
+    } catch (e) { $("formMsg").textContent = dbErr(e); }
+    finally { $("btnSave").disabled = false; }
+  }
+
+  // ---------- Export / Import ----------
+  const COLS = [["name", "Projektname"], ["kunde", "Auftraggeber"], ["von", "Von"], ["bis", "Bis"], ["laufend", "Laufend"], ["volumenWert", "Volumen"], ["volumenEinheit", "Einheit"],
+    ["beschreibung", "Projektbeschreibung"], ["situation", "Ausgangssituation"], ["herausforderungen", "Herausforderungen"], ["loesung", "Lösung"], ["sonstiges", "Sonstiges"]];
+  function csvCell(x) {
+    if (x === true) x = "ja"; else if (x === false) x = "nein";
+    if (typeof x === "number") x = String(x).replace(".", ",");
+    const s = String(x ?? "");
+    return /[";\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+  function stamp() { return new Date().toISOString().slice(0, 10); }
+  async function offer(filename, data) {
+    if (!downloads) { toast("Download ist in dieser Ansicht nicht verfügbar."); return; }
+    try { await downloads.save({ filename, data }); }
+    catch (e) { if (e && e.code !== "declined") toast("Der Download hat nicht geklappt."); }
+  }
+  function exportCsv() {
+    const arr = filtered();
+    if (!arr.length) { toast("Keine Referenzen zum Exportieren."); return; }
+    const lines = [COLS.map(c => c[1]).join(";")].concat(arr.map(r => COLS.map(c => csvCell(c[0] === "von" || c[0] === "bis" ? fmtMonth(r[c[0]]) : r[c[0]])).join(";")));
+    offer(`projektreferenzen-${stamp()}.csv`, new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" }));
+  }
+  function exportJson() {
+    const arr = filtered().map(({ id, ...rest }) => rest);
+    if (!arr.length) { toast("Keine Referenzen zum Exportieren."); return; }
+    offer(`projektreferenzen-${stamp()}.json`, new Blob([JSON.stringify(arr, null, 2)], { type: "application/json" }));
+  }
+  async function importJson(file) {
+    if (!db) { toast("Der Speicher ist gerade nicht erreichbar."); return; }
+    let arr;
+    try { arr = JSON.parse(await file.text()); } catch { notice("Die Datei ist kein gültiges JSON.", true); return; }
+    if (!Array.isArray(arr)) { notice("Die Datei muss eine Liste von Referenzen enthalten, wie sie der JSON-Export erzeugt.", true); return; }
+    let n = 0, skipped = 0;
+    const now = new Date().toISOString();
+    for (const r of arr) {
+      if (!r || typeof r !== "object" || !r.name) { skipped++; continue; }
+      const doc = {};
+      ["name", "kunde", "von", "bis", "beschreibung", "situation", "herausforderungen", "loesung", "sonstiges"].forEach(k => doc[k] = String(r[k] ?? "").slice(0, 8000));
+      doc.laufend = !!r.laufend;
+      doc.volumenWert = r.volumenWert == null || r.volumenWert === "" ? null : Number(r.volumenWert);
+      doc.volumenEinheit = r.volumenEinheit === "EUR" ? "EUR" : "PT";
+      doc.createdAt = r.createdAt || now; doc.updatedAt = now;
+      try { await db.collection(COL).add(doc); n++; } catch (e) { notice(dbErr(e), true); break; }
+    }
+    toast(`${n} ${n === 1 ? "Referenz" : "Referenzen"} importiert` + (skipped ? `, ${skipped} übersprungen` : ""));
+  }
+
+  function steckbrief(r) {
+    const parts = [r.name, `Auftraggeber: ${r.kunde}`, `Zeitraum: ${fmtRange(r)}${months(r) ? " (" + fmtDuration(months(r)) + ")" : ""}`, `Volumen: ${fmtVol(r)}`, "", "Projektbeschreibung", r.beschreibung];
+    [["Ausgangssituation des Kunden", r.situation], ["Herausforderungen", r.herausforderungen], ["Lösung", r.loesung], ["Sonstiges", r.sonstiges]]
+      .forEach(([t, v]) => { if (v && v.trim()) parts.push("", t, v); });
+    return parts.join("\n");
+  }
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); toast("Steckbrief kopiert"); }
+    catch {
+      const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); toast("Steckbrief kopiert"); } catch { toast("Kopieren nicht möglich"); }
+      ta.remove();
+    }
+  }
+
+  // ---------- Ereignisse ----------
+  $("list").addEventListener("click", e => { const b = e.target.closest(".item"); if (!b) return; selectedId = b.dataset.id; confirmDelete = false; renderList(); renderDetail();
+    if (window.matchMedia("(max-width: 820px)").matches) $("detail").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("detail").addEventListener("click", async e => {
+    const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
+    const r = items.find(x => x.id === selectedId);
+    if (a === "new") openForm(null);
+    else if (a === "edit" && r) openForm(r);
+    else if (a === "copy" && r) copyText(steckbrief(r));
+    else if (a === "del") { confirmDelete = true; renderDetail(); }
+    else if (a === "del-no") { confirmDelete = false; renderDetail(); }
+    else if (a === "del-yes" && r && db) {
+      try { await db.collection(COL).doc(r.id).delete(); selectedId = null; confirmDelete = false; toast("Referenz gelöscht"); }
+      catch (err) { notice(dbErr(err), true); }
+    }
+  });
+  $("btnNew").addEventListener("click", () => openForm(null));
+  $("btnClose").addEventListener("click", closeForm);
+  $("btnCancel").addEventListener("click", closeForm);
+  $("scrim").addEventListener("click", closeForm);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("panel").hidden) closeForm(); });
+  $("form").addEventListener("submit", save);
+  $("u_PT").addEventListener("click", () => setUnit("PT"));
+  $("u_EUR").addEventListener("click", () => setUnit("EUR"));
+  $("f_laufend").addEventListener("change", e => { $("f_bis").disabled = e.target.checked; if (e.target.checked) $("f_bis").value = ""; });
+  $("f_beschreibung").addEventListener("input", updCounter);
+  ["q", "sort", "unitFilter"].forEach(id => $(id).addEventListener("input", renderList));
+  $("btnExportCsv").addEventListener("click", exportCsv);
+  $("btnExportJson").addEventListener("click", exportJson);
+  $("importFile").addEventListener("change", e => { const f = e.target.files[0]; if (f) importJson(f); e.target.value = ""; });
+  try { const s = localStorage.getItem("ref-sort"); if (s) $("sort").value = s; } catch {}
+  $("sort").addEventListener("change", () => { try { localStorage.setItem("ref-sort", $("sort").value); } catch {} });
+
+  // ---------- Speicher ----------
+  async function init() {
+    if (!window.claude || !window.claude.use) { $("stats").textContent = "Speicher nicht verfügbar"; notice("Der Speicher ist in dieser Ansicht nicht verfügbar. Läuft der Dienst?", true); $("list").innerHTML = '<div class="empty-list">Keine Verbindung zum Speicher.</div>'; return; }
+    claude.use("downloads").then(d => downloads = d).catch(() => {});
+    claude.use("user").then(async u => { if (!u) return; try { const c = await u.can("data.write"); if (c === false) { canWrite = false; applyWriteState(); } } catch {} }).catch(() => {});
+    db = await claude.use("db").catch(() => null);
+    if (!db) { $("stats").textContent = "Speicher nicht verfügbar"; notice("Der Dienst ist nicht erreichbar. Bitte starten Sie ihn und laden Sie die Seite neu.", true); $("list").innerHTML = '<div class="empty-list">Keine Verbindung zum Speicher.</div>'; return; }
+    const timer = setTimeout(() => notice("Das Laden dauert ungewöhnlich lange …"), 10000);
+    db.collection(COL).onSnapshot(snap => {
+      clearTimeout(timer); notice("");
+      items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      if (selectedId && !items.some(x => x.id === selectedId)) selectedId = null;
+      if (!selectedId && items.length && !window.matchMedia("(max-width: 820px)").matches) selectedId = filtered()[0]?.id || null;
+      render();
+    }, err => { clearTimeout(timer); notice("Die Referenzen konnten nicht geladen werden. Läuft der Dienst?", true); });
+  }
+  init();
+})();
+</script>
+</body>
+</html>
